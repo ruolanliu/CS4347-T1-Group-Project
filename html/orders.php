@@ -1,10 +1,14 @@
+<?php 
+$uid = $_GET['uid'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Inventory</title>
+        <title>Order History</title>
         <link rel="stylesheet" href="mainstyle.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -18,7 +22,9 @@
                     <li><a href="mainpage.html" class="active">Home</a></li>
                     <li><a href="inventory.html" class="inventory-btn">Inventory</a></li>
                     <li>Order Status</li>
-                    <li>Order History</li>
+                    <?php
+                    echo "<li><a href='http://localhost:8888/orders.php?uid={$uid}'></a>Order History</li>"
+                    ?>
                     <li>Shopping Cart</li>
                     <li>Checkout</li>
                     <li><a href="signin.html" class="signout-btn">Sign Out</a></li>
@@ -56,34 +62,36 @@
                                 <td>Arrival Date</td>
                                 <td>Items</td>
                                 <td>Total Price</td>
+                                <td>Status</td>
                         </tr>
                 ";
-                while($row = $res1->fetch_assoc()){
-                    $oid = $row['OrderID'];
+                while($row1 = $res1->fetch_assoc()){
+                    $oid = $row1['OrderID'];
                     $sql2 = "select ItemQuantity, UnitQuantity, PPU, ProductName 
                             from itemized_receipt,item,product where InvoiceID = {$oid} 
                             and itemized_receipt.ItemID = item.ItemID and item.ProductID = product.ProductID";
                     $res2 = $conn->query($sql2);
                     echo <<<tbl1
                         <tr>
-                            <td>{$row['OrderID']}</td>
-                            <td>{$row['DeliveryAddress']}</td>
-                            <td>{$row['OrderedOn']}</td>
-                            <td>{$row['DeliveryEstimate']}</td>
+                            <td>{$row1['OrderID']}</td>
+                            <td>{$row1['DeliveryAddress']}</td>
+                            <td>{$row1['OrderedOn']}</td>
+                            <td>{$row1['DeliveryEstimate']}</td>
                             <td>
                                 <ul>
                     tbl1;
                     $sum = 0.0;
 
-                    while($row = $res2->fetch_assoc()){
-                        $sum = $sum + ($row['UnitQuantity']*$row['ItemQuantity']*$row['PPU']);
-                        echo "<li>{$row['ProductName']} ({$row['UnitQuantity']} ct): {$row['ItemQuantity']}</li>";
+                    while($row2 = $res2->fetch_assoc()){
+                        $sum = $sum + ($row2['UnitQuantity']*$row2['ItemQuantity']*$row2['PPU']);
+                        echo "<li>{$row2['ProductName']} ({$row2['UnitQuantity']} ct): {$row2['ItemQuantity']}</li>";
                     }
 
                     echo <<<tbl2
                                 </ul>
                             </td>
                             <td>{$sum}</td>
+                            <td>{$row1['OrderStatus']}</td>
                         </tr>
                     tbl2;
                 }
