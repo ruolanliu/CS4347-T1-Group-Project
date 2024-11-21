@@ -19,11 +19,14 @@ $uid = $_GET['uid'];
             <div class="menu">
                 <ul>
                     <li class="logo"><img src="logo.png"></li>
-                    <li><a href="mainpage.html" class="active">Home</a></li>
-                    <li><a href="inventory.html" class="inventory-btn">Inventory</a></li>
+                    <?php
+                    echo "<li><a href='http://localhost:8888/mainpage.php?uid={$uid}'  class='active'>Home</a></li>";
+                    
+                    echo "<li><a href='http://localhost:8888/inventory.php?uid={$uid}' class='inventory-btn'>Inventory</a></li>";
+                    ?>
                     <li>Order Status</li>
                     <?php
-                    echo "<li><a href='http://localhost:8888/orders.php?uid={$uid}'></a>Order History</li>"
+                    echo "<li><a href='http://localhost:8888/orders.php?uid={$uid}'>Order History</a></li>"
                     ?>
                     <li>Shopping Cart</li>
                     <li>Checkout</li>
