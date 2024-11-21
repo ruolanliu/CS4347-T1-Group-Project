@@ -1,0 +1,17 @@
+ProductID,CategoryID,ProductName,ProductDesc,UnitMeasurement
+1,1,Red Ballpoint Pens,"Smooth-writing pens that deliver bold red ink for clear, vibrant notes and signatures.",Piece
+2,4,Spiral Notebook Wide Ruled 100pg,"Versatile notebooks featuring wide-ruled pages, perfect for school or personal use",Piece
+3,5,Chisel Tip Board Markers,Versatile markers with a chisel tip for precise lines and bold strokes on whiteboards and flip charts,Piece
+4,2,Mechanical Pencils 0.7mm,"Convenient pencils that offer consistent 0.7mm lead for fine, precise writing without the need for sharpening",Piece
+5,1,Black Ballpoint Pens,"Reliable pens that provide smooth, consistent black ink for everyday writing tasks.",Piece
+6,3,Heavy Duty College Ruled Paper,"Durable, thick paper designed for college students, featuring standard college ruling for neat note-taking.",Sheet
+7,5,Yellow Highlighters,Bright yellow highlighters ideal for marking important text and making notes stand out.,Piece
+8,2,Wooden Pencils,Classic wooden pencils that can be easily sharpened for a fine point and precise writing.,Piece
+9,3,Lightweight Graph Paper,"Ideal for math and design work, this graph paper features a light grid for easy plotting and drawing.",Sheet
+10,6,Manilla Tab Foldes,Sturdy folders with tabs for easy organization and categorization of documents.,Piece
+11,1,Gel Pens Assorted Colors,"Smooth-flowing gel pens in a variety of colors, perfect for adding flair to writing and artwork.",Piece
+12,4,Composition Notebook College Ruled 80pg,"Classic notebooks with college-ruled pages, perfect for students and writers alike.",Piece
+13,4,Spiral Notebook College Ruled 100pg,Convenient spiral-bound notebooks featuring college-ruled lines for organized note-taking.,Piece
+14,2,Colored Pencils Assorted,"A set of vibrant colored pencils for creative projects, drawing, and coloring activities.",Piece
+15,3,Lightweight Printer Paper,Standard printer paper that is lightweight and perfect for everyday printing needs.,Sheet
+16,5,Fine Tip Black Permanent Markers,Precision markers with fine tips for detailed writing and marking that won t fade or wash away.,Piece
