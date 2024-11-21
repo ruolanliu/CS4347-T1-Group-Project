@@ -1,0 +1,3 @@
+EmployeeID,FName,MInit,LName,Title,Email,PhoneNumber
+1,Mark,A,Johnson,Manager,mark.johnson@example.com,9876543210
+2,Lisa,B,Brown,Staff,lisa.brown@example.com,8765432109

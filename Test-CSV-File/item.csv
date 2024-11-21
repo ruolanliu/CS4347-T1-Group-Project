@@ -1,0 +1,4 @@
+ItemID,ProductID,UnitQuantity,PPU,AvailableStock
+1,101,500,0.05,10000
+2,102,1,0.50,5000
+3,103,1,5.00,1000

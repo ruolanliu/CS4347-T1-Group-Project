@@ -1,0 +1,4 @@
+ProductID,CategoryID,ProductName,ProductDesc,UnitMeasurement
+101,1,Printer Paper,High-quality A4 paper,Sheets
+102,2,Mechanical Pencil,0.7mm lead,Pcs
+103,3,Stapler,Compact metal stapler,Pcs
