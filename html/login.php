@@ -25,9 +25,9 @@
                 header("Location: http://localhost:8888/orders.php?uid={$res2['CustomerID']}");
 
             } else {
-                $errmsg = "username or password not found";
-                echo "<script>alert('{$errmsg}')</script>";
-                header("Location: signin.html");
+                echo "Error, username or password is not found.";
+                echo "<form action='signin.html'><button>Go Back to Sign In/button></form>";
+        
 
             }
 
