@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // 检查两次密码是否一致
+    // check password match or not
     if ($new_password !== $confirm_password) {
         echo "Error: Passwords do not match.";
         echo "<form action='resetpassword.html'><button>Go Back to Reset Password</button></form>";
