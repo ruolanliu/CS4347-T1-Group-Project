@@ -34,22 +34,17 @@
 	
 	//create Order record
 	$stmt = $conn->prepare("INSERT INTO ORDERS (OrderID, CustomerID,DeliveryAddress, OrderedOn, OrderStatus)
-	VALUES (:oid, :uid, :address, CURRENT_TIMESTAMP(), :status)"); //CURRENT_TIMESTAMP() returns the current date+time (same datatype used in ORDERS relation)
-	$stmt->bindParam(':oid', $orderID);
-	$stmt->bindParam(':uid', $customerID);
-	$stmt->bindParam(':address', $address);
-	//$stmt->bindParam(':orderedOn', $orderDate); //if SQL function doesnt work
-	$stmt->bindParam(':status', $orderStatus);
+	VALUES (?, ?, ?, CURRENT_TIMESTAMP(), ?)"); //CURRENT_TIMESTAMP() returns the current date+time (same datatype used in ORDERS relation)
+	$stmt->bindParam("iiss", $orderID, $customerID, $address, $orderStatus);
 	$stmt->execute();
 	
 	//create related Invoice record
 	$stmt = $conn->prepare("INSERT INTO INVOICE (InvoiceID, OrderID)
-	VALUES (:vid, :oid)");
-	$stmt->bindParam(':vid', $invoiceID);
-	$stmt->bindParam(':oid', $orderID);
+	VALUES (?, ?)");
+	$stmt->bindParam("ii", $invoiceID, $orderID);
 	$stmt->execute();
 	
-//use each tuple in JSON to create respective Order/Invoice/Itemized_Receipt entries 
+//use each tuple in JSON to create Itemized_Receipt entries 
  for(int i = 0; i < $cartArr.items.length; i++){ //since items.length = qty.length
 	 $itemID = $cartArr.items[i];
 	 $qty = $cartArr.qty[i];
@@ -63,19 +58,16 @@
 	 //create related Itemized_Receipt record
 	 $stmt = $conn->prepare("INSERT INTO ITEMIZED_RECEIPT(InvoiceID, ItemID, ItemQuantity)
 	 VALUES(:vid, :itemID, :qty)");
-	 $stmt->bindParam(':vid', $invoiceID);
-	 $stmt->bindParam(':itemID', $itemID);
-	 $stmt->bindParam(':qty', $qty);
+	 $stmt->bindParam("iii", $invoiceID, $itemID, $qty);
 	 $stmt->execute();
 	 
 	 //update item stock to reflect placed Order
 	 $stmt = $conn->prepare("UPDATE ITEM
-	 SET AvailableStock = AvailableStock - :qty WHERE ItemID = :itemID");
-	 $stmt->bindParam(':itemID', $itemID);
-	 $stmt->bindParam(':qty', $qty);
+	 SET AvailableStock = AvailableStock - ? WHERE ItemID = ?");
+	 $stmt->bindParam("ii", $itemID, $qty);
 	 $stmt->execute();
  }
-	
+	$stmt->close();
 
  }
  ?>
