@@ -25,9 +25,10 @@ $uid = $_GET['uid'];
                     ?>
                     <li>Order Status</li>
                     <?php
-                    echo "<li><a href='http://localhost:8888/orders.php?uid={$uid}'>Order History</a></li>"
+                    echo "<li><a href='http://localhost:8888/orders.php?uid={$uid}'>Order History</a></li>";
+                    
+                    echo "<li><a href='http://localhost:8888/neworder.php?uid={$uid}'>New Order</a></li>";
                     ?>
-                    <li>Shopping Cart</li>
                     <li>Checkout</li>
                     <li><a href="signin.html" class="signout-btn">Sign Out</a></li>
                 </ul>

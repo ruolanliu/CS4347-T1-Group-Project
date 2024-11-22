@@ -1,20 +1,16 @@
 <?php 
-$uid = $_GET['uid'];
+    $json = file_get_contents('php://input');
+
+    // Converts it into a PHP object
+    $data = json_decode($json);
+    $uid = $data->uid;
+    $items = $data->items;
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Inventory</title>
-        <link rel="stylesheet" href="mainstyle.css">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    </head>
 
     <body>
+
         <div class="container">
             <div class="menu">
                 <ul>
@@ -35,6 +31,7 @@ $uid = $_GET['uid'];
                 </ul>
             </div>
         </div>
+        <h1 style="color: white">Shopping Cart</h1>
 
         <?php
             $env = parse_ini_file('.env');
@@ -42,17 +39,15 @@ $uid = $_GET['uid'];
             $username = $env["USERNAME"];
             $password = $env["PASSWORD"];
             $db = $env["DATABASE"];
+            $sign = '$';
 
             $conn = new mysqli($servername, $username, $password, $db);
 
             if($conn->connect_error){
                 echo "bad connection";
             } else {
-                $sql1 = "select itemid, unitquantity, ppu, availablestock, productname
-                from Item natural join product";
-                $res1 = $conn->query($sql1);
 
-                if($res1){
+                if($items){
                     echo <<<th
                         <section class="wrapper-main">
                             <table>
@@ -60,18 +55,24 @@ $uid = $_GET['uid'];
                                     <th>Item ID</th>
                                     <th>Product Name</th>
                                     <th>Price</th>
-                                    <th>Stock Quantity</th>
+                                    <th>Quantity</th>
+                                    <th>Delete</th>
                                 </tr>
                     th;
-
-                    while($row1 = $res1->fetch_assoc()){
-                        $price = $row1['ppu']*$row1['unitquantity'];
+                     $sum = 0.0;
+                    for($i=0; $i<count($items); $i++){
+                        $sql1 = "select unitquantity, ppu, productname from item natural join product
+                                where itemid = {$items[$i]->itemID}";
+                        $res1 = $conn->query($sql1)->fetch_assoc();
+                        $price = $res1['ppu']*$res1['unitquantity']*$items[$i]->qty;
+                        $sum = $sum+$price;
                         echo <<<tbl1
                                     <tr>
-                                        <td>{$row1['itemid']}</td>
-                                        <td>{$row1['productname']}</td>
-                                        <td>{$price}</td>
-                                        <td>{$row1['availablestock']}</td>
+                                        <td class="item">{$items[$i]->itemID}</td>
+                                        <td>{$res1['productname']}</td>
+                                        <td>{$sign}{$price}</td>
+                                        <td class="qty">{$items[$i]->qty}</td>
+                                        <td><button onclick="this.parentElement.parentElement.remove()">Delete</button><td>
                                         <td>
                                     </tr>
                         tbl1;
@@ -79,11 +80,16 @@ $uid = $_GET['uid'];
 
                     echo " 
                             </table> 
-                        </section>";
+                        </section>
+                        <p style='color: white' id='pr'>Total Price: {$sign}{$sum}</p>"
+                        ;
+
+                    echo "<br><br> <button class='btn' style='padding: 10px' onclick='goCheckout({$uid})'>Confirm Order</button>";
                 }
             }
 
         ?>
 
+       
+
     </body>
-</html>

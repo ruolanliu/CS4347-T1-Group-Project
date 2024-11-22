@@ -16,7 +16,6 @@ $uid = $_GET['uid'];
             function addSelects(){
                 const form = document.getElementById("body");
                 const opts = form.firstElementChild;
-                console.log(opts)
                 const clone = opts.cloneNode(true);
                 form.appendChild(clone);
             }
@@ -80,6 +79,51 @@ $uid = $_GET['uid'];
                 req.open("GET", "http://localhost:8888/getitems.php?type=p&id="+prodID);
                 req.send()
             }
+
+            function sendOrder(user){
+                const items = document.getElementsByClassName("item");
+                const qtys = document.getElementsByClassName("qty");
+                const list = [];
+                for(let i=0; i<items.length; i++){
+                    const obj = {};
+                    obj.itemID = items[i].value;
+                    obj.qty = qtys[i].value;
+                    list.push(obj);
+                }
+                const req = {};
+                req.uid = user;
+                req.items = list;
+                let httpreq = new XMLHttpRequest();
+                httpreq.onload = function(){
+                    document.getElementsByTagName('body')[0].outerHTML = httpreq.responseText;
+                }
+                httpreq.open("POST", "http://localhost:8888/cart.php", true);
+                httpreq.setRequestHeader('Content-Type', 'application/json');
+                httpreq.send(JSON.stringify(req));
+            }
+
+            function goCheckout(user){
+                const items = document.getElementsByClassName("item");
+                const qtys = document.getElementsByClassName("qty");
+                const list = [];
+                for(let i=0; i<items.length; i++){
+                    const obj = {};
+                    obj.itemID = items[i].innerText;
+                    obj.qty = qtys[i].innerText;
+                    list.push(obj);
+                }
+                const req = {};
+                req.uid = user;
+                req.items = list;
+                
+                let httpreq = new XMLHttpRequest();
+                httpreq.onload = function(){
+                    document.getElementsByTagName('body')[0].innerHTML = httpreq.responseText;
+                }
+                httpreq.open("POST", "http://localhost:8888/checkout.php", true);
+                httpreq.setRequestHeader('Content-Type', 'application/json');
+                httpreq.send(JSON.stringify(req)); 
+            }
         
         </script>
 
@@ -99,9 +143,10 @@ $uid = $_GET['uid'];
                     ?>
                     <li>Order Status</li>
                     <?php
-                    echo "<li><a href='http://localhost:8888/orders.php?uid={$uid}'>Order History</a></li>"
+                    echo "<li><a href='http://localhost:8888/orders.php?uid={$uid}'>Order History</a></li>";
+                    
+                    echo "<li><a href='http://localhost:8888/neworder.php?uid={$uid}'>New Order</a></li>";
                     ?>
-                    <li>Shopping Cart</li>
                     <li>Checkout</li>
                     <li><a href="signin.html" class="signout-btn">Sign Out</a></li>
                 </ul>
@@ -110,16 +155,16 @@ $uid = $_GET['uid'];
             
         </div >
 
-        <div style="padding-left: 100px">
-            <h1>Create Order</h1>
+        <div style="padding-left: 100px; padding-top: 20px;">
+            <h1 style="color: white">Create Order</h1>
             <br>
             <br>
-            <button class="btn" onclick="addSelects()">Add Item</button>
+            <button class="btn" style="padding: 10px" onclick="addSelects()">Add Item</button>
             <br>
             <br>
             <form action="" id="body">
                 <div>
-                    <select name="category" oninput="findProds(this)">
+                    <select name="category" style="padding: 10px" oninput="findProds(this)">
                         <?php 
                             $env = parse_ini_file('.env');
                             $servername = $env["SERVER"];
@@ -140,13 +185,13 @@ $uid = $_GET['uid'];
                             }
                         ?>
                     </select>
-                    <select name="prod" oninput="findItems(this)">
+                    <select name="prod" style="padding: 10px" oninput="findItems(this)">
 
                     </select>
-                    <select name="item">
+                    <select name="item" class="item" style="padding: 10px">
                         
                     </select>
-                    <input type="number">
+                    <input type="number" name="qty" class="qty" style="padding: 10px">
                     <br>
                     <br>
                 </div>
@@ -154,8 +199,9 @@ $uid = $_GET['uid'];
             </form>
             <br>
             <br>
-        
-            <button class="btn">Create Order</button>
+            <?php
+            echo "<button class='btn' style='padding: 10px' onclick='sendOrder({$uid})'>Go to Shopping Cart</button>"
+            ?>
         </div>
 
        

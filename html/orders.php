@@ -26,9 +26,10 @@ $uid = $_GET['uid'];
                     ?>
                     <li>Order Status</li>
                     <?php
-                    echo "<li><a href='http://localhost:8888/orders.php?uid={$uid}'>Order History</a></li>"
+                    echo "<li><a href='http://localhost:8888/orders.php?uid={$uid}'>Order History</a></li>";
+                    
+                    echo "<li><a href='http://localhost:8888/neworder.php?uid={$uid}'>New Order</a></li>";
                     ?>
-                    <li>Shopping Cart</li>
                     <li>Checkout</li>
                     <li><a href="signin.html" class="signout-btn">Sign Out</a></li>
                 </ul>
@@ -52,8 +53,9 @@ $uid = $_GET['uid'];
             $uid = $_GET['uid'];
             $sql1 = "select * from orders where CustomerID = {$uid}";
             $res1 = $conn->query($sql1);
+            $sign = '$';
 
-            echo "<h1>Order History</h1>";
+            echo "<h1 style='color: white'>Order History</h1>";
 
             if($res1){
                 echo " 
@@ -89,11 +91,11 @@ $uid = $_GET['uid'];
                         $sum = $sum + ($row2['UnitQuantity']*$row2['ItemQuantity']*$row2['PPU']);
                         echo "<li>{$row2['ProductName']} ({$row2['UnitQuantity']} ct): {$row2['ItemQuantity']}</li>";
                     }
-
+                
                     echo <<<tbl2
                                 </ul>
                             </td>
-                            <td>{$sum}</td>
+                            <td>{$sign}{$sum}</td>
                             <td>{$row1['OrderStatus']}</td>
                         </tr>
                     tbl2;
