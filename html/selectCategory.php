@@ -1,6 +1,6 @@
 <? php
 
- if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
         $env = parse_ini_file('.env');
         $servername = $env["SERVER"];
