@@ -57,7 +57,7 @@
 	 //verify that item has AvailableStock >=qty. If not then skip this Item.
 	 $sql = "SELECT AvailableStock FROM ITEM 
 		WHERE ITEM.ItemID = '". $itemID ."'";
-	 $res = conn->query($sql);
+	 $res = $conn->query($sql);
 	 if($res < $qty){echo "Error: Selected quantity for '" . $itemID . "' exceeds current available stock."; continue;}
 	 
 	 //create related Itemized_Receipt record
