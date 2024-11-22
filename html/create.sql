@@ -101,6 +101,22 @@ CREATE TABLE ITEMIZED_RECEIPT(
 	ON UPDATE RESTRICT
 );
 
+CREATE TABLE SHOPPING_CART(
+	CustomerID INT,
+	ItemID INT,
+	ItemQuantity INT,
+	CONSTRAINT PK_SC PRIMARY KEY (CustomerID, ItemID),
+	CONSTRAINT FK_SC_Customer FOREIGN KEY (CustomerID) REFERENCES CUSTOMER(CustomerID)
+	ON DELETE CASCADE,
+	CONSTRAINT FK_SC_Item FOREIGN KEY (ItemID) REFERENCES ITEM (ItemID)
+	ON DELETE CASCADE,
+	CONSTRAINT IN_STOCK CHECK (ItemQuantity <= 
+	(SELECT AvailableStock 
+	FROM ITEM, SHOPPING_CART 
+	WHERE ITEM.ItemID = SHOPPING_CART.ItemID))
+);
+
+
 SET unique_checks = 1; /*Re-enables error handling for unique constraint*/
 SET foreign_key_checks = 1;/*Re-enables error handling for foreign key constraint*/
 COMMIT; /*End of transaction*/
