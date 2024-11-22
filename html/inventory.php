@@ -42,6 +42,7 @@ $uid = $_GET['uid'];
             $username = $env["USERNAME"];
             $password = $env["PASSWORD"];
             $db = $env["DATABASE"];
+            $sign = '$';
 
             $conn = new mysqli($servername, $username, $password, $db);
 
@@ -70,7 +71,7 @@ $uid = $_GET['uid'];
                                     <tr>
                                         <td>{$row1['itemid']}</td>
                                         <td>{$row1['productname']}</td>
-                                        <td>{$price}</td>
+                                        <td>{$sign}{$price}</td>
                                         <td>{$row1['availablestock']}</td>
                                         <td>
                                     </tr>

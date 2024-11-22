@@ -39,8 +39,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':password', $password); 
             $stmt->execute();
 
-            echo "Signup successful.";
-            echo "<form action='signin.html'><button>Go to Sign In</button></form>";
+            echo <<<HTL
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="style.css">
+                <title>Signup Successful</title>
+            </head>
+            <body>
+                <div class="wrapper">
+                    <h1>Signup Successful</h1>
+                    <p style="text-align: center; color: dimgray; font-size: 16px; margin-bottom: 20px;">
+                        Your account has been created successfully.
+                    </p>
+                    <form action="signin.html">
+                        <button type="submit" class="btn">Go to Sign In</button>
+                    </form>
+                </div>
+            </body>
+            </html>
+            HTL;
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();

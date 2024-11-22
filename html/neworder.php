@@ -80,6 +80,19 @@ $uid = $_GET['uid'];
                 req.send()
             }
 
+            function editPrice(){
+                const price = document.getElementById('pr');
+                const prs = document.getElementsByClassName('price');
+                let sum = 0;
+                for(let i=0; i<prs.length; i++){
+                    let num = prs[i].innerText.slice(1)
+                    console.log(num)
+                    num = Number(num)
+                    sum = sum + num;
+                }
+                price.innerText = 'Total Price: $'+String(sum);
+            }
+
             function sendOrder(user){
                 const items = document.getElementsByClassName("item");
                 const qtys = document.getElementsByClassName("qty");

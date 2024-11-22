@@ -70,9 +70,9 @@
                                     <tr>
                                         <td class="item">{$items[$i]->itemID}</td>
                                         <td>{$res1['productname']}</td>
-                                        <td>{$sign}{$price}</td>
+                                        <td class="price">{$sign}{$price}</td>
                                         <td class="qty">{$items[$i]->qty}</td>
-                                        <td><button onclick="this.parentElement.parentElement.remove()">Delete</button><td>
+                                        <td><button onclick="this.parentElement.parentElement.remove(); editPrice()">Delete</button><td>
                                         <td>
                                     </tr>
                         tbl1;

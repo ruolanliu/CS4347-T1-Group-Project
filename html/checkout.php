@@ -72,7 +72,7 @@
 			 //update item stock to reflect placed Order
 			$stmt = $conn->prepare("UPDATE ITEM
 			SET AvailableStock = AvailableStock - ? WHERE ItemID = ?");
-			$stmt->bind_param("ii", $itemID, $qty);
+			$stmt->bind_param("ii", $qty, $itemID);
 			$stmt->execute();
 		}
 

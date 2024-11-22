@@ -22,7 +22,7 @@
             if($res1){
                 $sql2 = "select CustomerID from Customer where Email='$un'";
                 $res2 = $conn->query($sql2)->fetch_assoc();
-                header("Location: http://localhost:8888/orders.php?uid={$res2['CustomerID']}");
+                header("Location: http://localhost:8888/mainpage.php?uid={$res2['CustomerID']}");
 
             } else {
                 echo "Error, username or password is not found.";
