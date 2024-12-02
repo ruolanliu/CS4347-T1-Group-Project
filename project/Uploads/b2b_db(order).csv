@@ -1,0 +1,6 @@
+OrderID,CustomerID,FulfilledBy,DeliveryAddress,OrderedOn,DeliveryEstimate,OrderStatus
+1,3,5,6324 Felis. Avenue Los Angeles CA 95321,2024-08-06 13:25:00,2024-08-26 13:25:00,Delivered
+2,6,8,428-4194 Mauris Avenue Flekkefjord TX 79482,2024-09-13 15:00:00,2024-10-03 15:00:00,Delivered
+3,2,3,557-3038 Luctus Ave Santander PA 33459,2024-10-26 11:35:00,2024-11-10 11:35:00,Transit
+4,1,10,1234 November St. Richardson TX 75080,2024-10-29 16:10:00,2024-11-15 16:10:00,Transit
+5,7,9,764-6689 Nunc Street Iriga TN 45874,2024-11-02 11:35:00,2024-11-21 11:35:00,Pending
